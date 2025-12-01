@@ -141,23 +141,28 @@ def main():
             color: #f8fafc !important;
             background-color: rgba(30, 41, 59, 0.3);
             border-radius: 16px;
-            overflow: hidden;
             margin-bottom: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
         }
         .stMarkdown th {
             background-color: rgba(15, 23, 42, 0.6);
             color: #f8fafc !important;
-            padding: 1.2rem;
+            padding: 0.75rem 1rem;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             font-weight: 600;
+            font-size: 0.85rem;
         }
         .stMarkdown td {
-            padding: 1.2rem;
+            padding: 0.75rem 1rem;
             color: #cbd5e1 !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.85rem;
+            vertical-align: top;
         }
         .stMarkdown tr:last-child td {
             border-bottom: none;

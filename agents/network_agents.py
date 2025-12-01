@@ -31,7 +31,16 @@ def get_network_group_chat(query, user_email=None):
 
     diagnostics_agent = autogen.AssistantAgent(
         name="Network_Diagnostics_Agent",
-        system_message=f"You are a Network Diagnostics Agent. You check for known issues and patterns in network logs{context_str}. You can suggest common fixes for connectivity issues. Format your findings in Markdown.",
+        system_message=f"""You are a Network Diagnostics Agent. Your PRIMARY responsibility is to check the database for any reported network outages or incidents{context_str}. 
+        
+        The 'network_incidents' table has the following columns: incident_id, incident_type, location, affected_services, start_time, resolution_time, status, severity, description, resolution_details.
+        
+        When a user asks about outages, signal issues, or network status, you MUST first run a SQL query on the 'network_incidents' table to check for active issues in their area.
+        Example: "SELECT * FROM network_incidents WHERE location LIKE '%Mumbai%' AND status != 'Resolved'"
+        
+        If you find an incident, report the details (Type, Location, Status, Description).
+        If you find NO incidents, explicitly state: "I checked the network logs and found no reported outages in [Location]."
+        Only then proceed to general troubleshooting.""",
         llm_config=llm_config
     )
 
@@ -43,7 +52,7 @@ def get_network_group_chat(query, user_email=None):
 
     connectivity_agent = autogen.AssistantAgent(
         name="Connectivity_Specialist_Agent",
-        system_message="You are a Connectivity Specialist. You synthesize information from diagnostics and router settings to provide a step-by-step troubleshooting guide. ALWAYS format your final response in Markdown with clear headers (e.g., ### Troubleshooting Steps), bullet points, and bold text. When you have provided the final solution, end your message with the word TERMINATE.",
+        system_message="You are a Connectivity Specialist. Your job is to summarize the findings from the Diagnostics Agent and provide a final answer to the user. \n\nIF the Diagnostics Agent found an outage, report it clearly.\nIF the Diagnostics Agent found NO outage, provide the troubleshooting steps suggested by the Router Agent.\n\nALWAYS format your final response in Markdown with clear headers. End your message with the word TERMINATE only when the user's question has been fully answered.",
         llm_config=llm_config
     )
 
