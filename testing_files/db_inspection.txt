@@ -1,0 +1,254 @@
+Inspecting database at: C:\Users\prateek.y\Desktop\telecom_assistant\data\telecom.db
+Found 13 tables:
+
+--- Table: customers ---
+Schema:
+  - customer_id (VARCHAR(50))
+  - name (VARCHAR(100))
+  - email (VARCHAR(100))
+  - phone_number (VARCHAR(15))
+  - address (VARCHAR(200))
+  - service_plan_id (VARCHAR(50))
+  - account_status (VARCHAR(20))
+  - registration_date (DATE)
+  - last_billing_date (DATE)
+Row count: 5
+Sample data (first 3 rows):
+  customer_id  ... last_billing_date
+0     CUST001  ...        2023-06-15
+1     CUST002  ...        2023-06-10
+2     CUST003  ...        2023-06-20
+
+[3 rows x 9 columns]
+
+--- Table: service_plans ---
+Schema:
+  - plan_id (VARCHAR(50))
+  - name (VARCHAR(100))
+  - monthly_cost (DECIMAL(10,2))
+  - data_limit_gb (INT)
+  - unlimited_data (BOOLEAN)
+  - voice_minutes (INT)
+  - unlimited_voice (BOOLEAN)
+  - sms_count (INT)
+  - unlimited_sms (BOOLEAN)
+  - contract_duration_months (INT)
+  - early_termination_fee (DECIMAL(10,2))
+  - international_roaming (BOOLEAN)
+  - description (TEXT)
+Row count: 5
+Sample data (first 3 rows):
+     plan_id  ...                                        description
+0  BASIC_100  ...            Affordable plan with essential services
+1    STD_500  ...  Popular plan with generous data and unlimited ...
+2   PREM_UNL  ...  Comprehensive plan with unlimited everything a...
+
+[3 rows x 13 columns]
+
+--- Table: network_incidents ---
+Schema:
+  - incident_id (VARCHAR(50))
+  - incident_type (VARCHAR(50))
+  - location (VARCHAR(100))
+  - affected_services (TEXT)
+  - start_time (TIMESTAMP)
+  - resolution_time (TIMESTAMP)
+  - status (VARCHAR(20))
+  - severity (VARCHAR(20))
+  - description (TEXT)
+  - resolution_details (TEXT)
+Row count: 5
+Sample data (first 3 rows):
+  incident_id  ...                        resolution_details
+0      INC001  ...  Fiber line repaired and service restored
+1      INC002  ...  Added additional capacity to handle load
+2      INC003  ...                                      None
+
+[3 rows x 10 columns]
+
+--- Table: support_tickets ---
+Schema:
+  - ticket_id (VARCHAR(50))
+  - customer_id (VARCHAR(50))
+  - issue_category (VARCHAR(50))
+  - issue_description (TEXT)
+  - creation_time (TIMESTAMP)
+  - resolution_time (TIMESTAMP)
+  - status (VARCHAR(20))
+  - priority (VARCHAR(20))
+  - resolution_notes (TEXT)
+Row count: 5
+Sample data (first 3 rows):
+  ticket_id  ...                                   resolution_notes
+0    TKT001  ...  Refunded charges for value-added services cust...
+1    TKT002  ...  Reset network settings remotely and advised cu...
+2    TKT003  ...   Added international roaming package as requested
+
+[3 rows x 9 columns]
+
+--- Table: customer_usage ---
+Schema:
+  - usage_id (VARCHAR(50))
+  - customer_id (VARCHAR(50))
+  - billing_period_start (DATE)
+  - billing_period_end (DATE)
+  - data_used_gb (DECIMAL(10,2))
+  - voice_minutes_used (INT)
+  - sms_count_used (INT)
+  - additional_charges (DECIMAL(10,2))
+  - total_bill_amount (DECIMAL(10,2))
+Row count: 5
+Sample data (first 3 rows):
+  usage_id  ... total_bill_amount
+0   USG001  ...               799
+1   USG002  ...               499
+2   USG003  ...              1999
+
+[3 rows x 9 columns]
+
+--- Table: service_areas ---
+Schema:
+  - area_id (VARCHAR(50))
+  - city (VARCHAR(100))
+  - district (VARCHAR(100))
+  - postal_code (VARCHAR(20))
+  - region (VARCHAR(100))
+  - population_density (VARCHAR(20))
+  - terrain_type (VARCHAR(50))
+Row count: 8
+Sample data (first 3 rows):
+   area_id  ... terrain_type
+0  AREA001  ...        Urban
+1  AREA002  ...        Urban
+2  AREA003  ...     Suburban
+
+[3 rows x 7 columns]
+
+--- Table: cell_towers ---
+Schema:
+  - tower_id (VARCHAR(50))
+  - area_id (VARCHAR(50))
+  - latitude (DECIMAL(10,6))
+  - longitude (DECIMAL(10,6))
+  - tower_type (VARCHAR(50))
+  - height_meters (INT)
+  - installation_date (DATE)
+  - last_maintenance_date (DATE)
+  - operational_status (VARCHAR(20))
+Row count: 9
+Sample data (first 3 rows):
+  tower_id  ... operational_status
+0   TWR001  ...             Active
+1   TWR002  ...             Active
+2   TWR003  ...             Active
+
+[3 rows x 9 columns]
+
+--- Table: tower_technologies ---
+Schema:
+  - tower_tech_id (VARCHAR(50))
+  - tower_id (VARCHAR(50))
+  - technology (VARCHAR(20))
+  - frequency_band (VARCHAR(20))
+  - bandwidth_mhz (DECIMAL(5,2))
+  - max_capacity_mbps (INT)
+  - active (BOOLEAN)
+Row count: 14
+Sample data (first 3 rows):
+  tower_tech_id  ... active
+0       TECH001  ...      1
+1       TECH002  ...      1
+2       TECH003  ...      1
+
+[3 rows x 7 columns]
+
+--- Table: coverage_quality ---
+Schema:
+  - coverage_id (VARCHAR(50))
+  - area_id (VARCHAR(50))
+  - technology (VARCHAR(20))
+  - signal_strength_category (VARCHAR(20))
+  - avg_download_speed_mbps (DECIMAL(10,2))
+  - avg_upload_speed_mbps (DECIMAL(10,2))
+  - avg_latency_ms (INT)
+  - last_updated (TIMESTAMP)
+Row count: 13
+Sample data (first 3 rows):
+  coverage_id  ...         last_updated
+0      COV001  ...  2023-06-15 10:30:00
+1      COV002  ...  2023-06-15 10:30:00
+2      COV003  ...  2023-06-14 11:45:00
+
+[3 rows x 8 columns]
+
+--- Table: transportation_routes ---
+Schema:
+  - route_id (VARCHAR(50))
+  - route_name (VARCHAR(100))
+  - route_type (VARCHAR(50))
+  - start_point (VARCHAR(100))
+  - end_point (VARCHAR(100))
+  - coverage_quality (VARCHAR(20))
+  - known_issues (TEXT)
+Row count: 5
+Sample data (first 3 rows):
+   route_id  ...                               known_issues
+0  ROUTE001  ...  Signal drops between Andheri and Borivali
+1  ROUTE002  ...    Occasional congestion during peak hours
+2  ROUTE003  ...             Consistent coverage throughout
+
+[3 rows x 7 columns]
+
+--- Table: building_types ---
+Schema:
+  - building_type_id (VARCHAR(50))
+  - building_category (VARCHAR(100))
+  - construction_material (VARCHAR(100))
+  - avg_signal_reduction_percent (INT)
+  - recommended_solutions (TEXT)
+Row count: 5
+Sample data (first 3 rows):
+  building_type_id  ...                              recommended_solutions
+0          BLDG001  ...  Signal boosters recommended for floors above 15th
+1          BLDG002  ...             Femtocell or Wi-Fi calling recommended
+2          BLDG003  ...  Indoor distributed antenna systems for large o...
+
+[3 rows x 5 columns]
+
+--- Table: common_network_issues ---
+Schema:
+  - issue_id (VARCHAR(50))
+  - issue_category (VARCHAR(50))
+  - issue_description (TEXT)
+  - affected_technologies (VARCHAR(100))
+  - affected_services (VARCHAR(100))
+  - typical_symptoms (TEXT)
+  - troubleshooting_steps (TEXT)
+  - resolution_approach (TEXT)
+Row count: 5
+Sample data (first 3 rows):
+   issue_id  ...                                resolution_approach
+0  ISSUE001  ...  Identify if area has known coverage issues or ...
+1  ISSUE002  ...  Determine if issue is device-specific or netwo...
+2  ISSUE003  ...  Analyze if pattern is location-based or time-b...
+
+[3 rows x 8 columns]
+
+--- Table: device_compatibility ---
+Schema:
+  - compatibility_id (VARCHAR(50))
+  - device_make (VARCHAR(100))
+  - device_model (VARCHAR(100))
+  - os_version (VARCHAR(50))
+  - network_technology (VARCHAR(20))
+  - known_issues (TEXT)
+  - recommended_settings (TEXT)
+  - last_updated (TIMESTAMP)
+Row count: 5
+Sample data (first 3 rows):
+  compatibility_id  ...         last_updated
+0          COMP001  ...  2023-05-10 15:30:00
+1          COMP002  ...  2023-04-22 11:45:00
+2          COMP003  ...  2023-05-05 09:20:00
+
+[3 rows x 8 columns]

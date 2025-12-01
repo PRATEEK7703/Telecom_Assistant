@@ -1,0 +1,13 @@
+--- Schema for customers ---
+Column: customer_id, Type: VARCHAR(50)
+Column: name, Type: VARCHAR(100)
+Column: email, Type: VARCHAR(100)
+Column: phone_number, Type: VARCHAR(15)
+Column: address, Type: VARCHAR(200)
+Column: service_plan_id, Type: VARCHAR(50)
+Column: account_status, Type: VARCHAR(20)
+Column: registration_date, Type: DATE
+Column: last_billing_date, Type: DATE
+
+--- Sample Data ---
+('CUST001', 'SivaPrasad Valluru', 'siva@example.com', '8088910831', 'Apartment 301, Sunshine Towers, Bangalore', 'STD_500', 'Active', '2022-03-15', '2023-06-15')

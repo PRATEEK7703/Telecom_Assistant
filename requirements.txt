@@ -1,0 +1,13 @@
+langgraph
+crewai
+pyautogen
+langchain
+llama-index
+streamlit
+openai
+chromadb
+python-dotenv
+langchain-community
+langchain-openai
+langchain-experimental
+nest_asyncio
