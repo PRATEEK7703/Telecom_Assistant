@@ -97,6 +97,3 @@ telecom_assistant/
         - "What is the best plan for a family of 4?"
         - "How do I enable VoLTE?"
 
-## 📄 License
-
-This project is licensed under the MIT License.
