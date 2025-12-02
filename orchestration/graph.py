@@ -21,10 +21,11 @@ def classify_query(state: AgentState):
     2. NETWORK (e.g., signal issues, internet speed, troubleshooting)
     3. SERVICE (e.g., plan recommendations, new connections)
     4. KNOWLEDGE (e.g., technical docs, how-to guides, coverage)
+    5. OTHERS (e.g., cooking recipes, general knowledge, politics, unrelated topics)
     
     Query: {query}
     
-    Return only the category name (BILLING, NETWORK, SERVICE, or KNOWLEDGE).
+    Return only the category name (BILLING, NETWORK, SERVICE, KNOWLEDGE, or OTHERS).
     """
     
     response = llm.invoke(prompt)
@@ -75,6 +76,10 @@ def knowledge_node(state: AgentState):
     response = query_engine.query(query)
     return {"response": str(response)}
 
+def out_of_context_node(state: AgentState):
+    """Handles out-of-context queries."""
+    return {"response": "I can't say since it is out of context."}
+
 def formulate_response(state: AgentState):
     """Formats the final response."""
     # In this simple version, we just pass through the response
@@ -92,6 +97,8 @@ def route_query(state: AgentState):
         return "service_node"
     elif category == "KNOWLEDGE":
         return "knowledge_node"
+    elif category == "OTHERS":
+        return "out_of_context_node"
     else:
         return "knowledge_node" # Default fallback
 
@@ -103,6 +110,7 @@ workflow.add_node("billing_node", billing_node)
 workflow.add_node("network_node", network_node)
 workflow.add_node("service_node", service_node)
 workflow.add_node("knowledge_node", knowledge_node)
+workflow.add_node("out_of_context_node", out_of_context_node)
 workflow.add_node("formulate_response", formulate_response)
 
 workflow.set_entry_point("classify_query")
@@ -114,7 +122,9 @@ workflow.add_conditional_edges(
         "billing_node": "billing_node",
         "network_node": "network_node",
         "service_node": "service_node",
-        "knowledge_node": "knowledge_node"
+        "service_node": "service_node",
+        "knowledge_node": "knowledge_node",
+        "out_of_context_node": "out_of_context_node"
     }
 )
 
@@ -122,6 +132,7 @@ workflow.add_edge("billing_node", "formulate_response")
 workflow.add_edge("network_node", "formulate_response")
 workflow.add_edge("service_node", "formulate_response")
 workflow.add_edge("knowledge_node", "formulate_response")
+workflow.add_edge("out_of_context_node", "formulate_response")
 workflow.add_edge("formulate_response", END)
 
 app = workflow.compile()
